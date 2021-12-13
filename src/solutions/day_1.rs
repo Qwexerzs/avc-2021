@@ -20,7 +20,7 @@ pub fn puzzle_2(input: String) -> i32 {
   let mut window_position_tracker = 0;
 
   for number_string in input.lines() {
-    if pre_load_counter < 3 {
+    if pre_load_counter < window.len() {
       window[pre_load_counter] = number_string.parse::<i32>().unwrap();
       pre_load_counter += 1;
       continue;
@@ -28,15 +28,15 @@ pub fn puzzle_2(input: String) -> i32 {
 
     window[window_position_tracker] = number_string.parse::<i32>().unwrap();
 
-    let window_sum = window[(window_position_tracker + 1) % 3]
-      + window[(window_position_tracker + 2) % 3]
+    let window_sum = window[(window_position_tracker + 1) % window.len()]
+      + window[(window_position_tracker + 2) % window.len()]
       + window[window_position_tracker];
     if window_sum > previous_window_sum {
       counter += 1;
     }
     previous_window_sum = window_sum;
 
-    window_position_tracker = (window_position_tracker + 1) % 3;
+    window_position_tracker = (window_position_tracker + 1) % window.len();
   }
   counter
 }
